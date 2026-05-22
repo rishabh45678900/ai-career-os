@@ -1,0 +1,210 @@
+import { NextResponse } from "next/server";
+
+export async function POST(req: Request) {
+  try {
+    const body = await req.json();
+    const userMessage = body.message;
+
+    // 2 second delay for natural feel
+    await new Promise(resolve => setTimeout(resolve, 2000));
+
+    const reply = generateSmartReply(userMessage);
+    
+    return NextResponse.json({ reply });
+  } catch (error: any) {
+    return NextResponse.json({
+      reply: "⚠️ Error: " + error.message,
+    });
+  }
+}
+
+function generateSmartReply(message: string): string {
+  const msg = message.toLowerCase();
+  
+  // ========== GREETINGS & CONVERSATION ==========
+  if (msg.match(/hi|hello|hey|namaste|good morning|good evening|howdy|hola|sup|yo|heyy|hellooo/i)) {
+    return "Hey there! 👋 So nice to talk to you! I'm your AI assistant — think of me as a friend who's really good at tech and career stuff. How's your day going? What can we dive into today? 😊";
+  }
+  
+  if (msg.match(/how are you|how's it going|what's up|how do you do|how you doing|how are things/i)) {
+    return "I'm doing absolutely wonderful, thank you for asking! ✨ I've just been here, reading, learning, and getting ready to help awesome people like you. But more importantly — how are *you* doing today? Anything exciting happening in your world? 😊";
+  }
+  
+  if (msg.match(/thank|thanks|appreciate|good job|awesome|great|perfect|wonderful|you're awesome|you are awesome/i)) {
+    return "Aww, thank you so much! 🙏 That really means a lot to me. I'm just happy I could help! Remember, I'm always here whenever you need anything — whether it's career advice, coding help, or just someone to chat with. What would you like to explore next? 🚀";
+  }
+  
+  if (msg.match(/bye|goodbye|see you|tata|peace out|farewell|cya|talk later/i)) {
+    return "Goodbye, friend! 👋 It was genuinely great talking with you. Remember, I'm always here whenever you need advice, help with coding, or just want to chat. Wishing you an amazing day ahead! Come back anytime — my virtual door is always open. 🌟";
+  }
+  
+  if (msg.match(/what is your name|who are you|what are you|tell me about yourself|your name/i)) {
+    return "I'm your friendly AI Career Assistant! 🎯 Think of me as a mentor, coach, and coding buddy all rolled into one. I was built to help people like you navigate the world of tech, careers, coding, and life in general. I'm not perfect, but I'm always learning and always here for you. So... what's on your mind today? 😊";
+  }
+  
+  if (msg.match(/what can you do|help|capabilities|features|what do you do/i)) {
+    return "Oh, I can do quite a bit! 🌟 Let me break it down for you:\n\n📄 **Resumes** - Review yours, give tips, help with ATS optimization\n🎯 **Interviews** - Prep for coding, system design, behavioral\n💻 **Coding** - Roadmaps for Python, React, JavaScript, Java, and more\n🚀 **Career** - Salary guides, job search strategies, career switches\n📚 **Learning** - Free resources, study plans, project ideas\n🌍 **General** - Answer questions about tech, science, history, practically anything\n💬 **Chat** - Motivation, advice, jokes, or just casual conversation\n\nSo... what do you need help with today? I'm all ears! 👂😊";
+  }
+  
+  // ========== AI ENGINEER ROADMAP ==========
+  if (msg.match(/ai engineer|artificial intelligence engineer|become ai engineer|ai engineering|how to become ai|ai career/i)) {
+    return "🤖 **Becoming an AI Engineer - The Complete Picture**\n\nYou know what? This is one of the most exciting fields right now! Let me give you a realistic roadmap.\n\n**Phase 1: Foundation (2-3 months)**\n• Python - and I mean really know it (not just syntax)\n• Math basics - Linear Algebra, Calculus (don't worry, just the practical parts)\n• Statistics & Probability - this is where the magic starts\n\n**Phase 2: Core AI/ML (3-4 months)**\n• Machine Learning with Scikit-learn\n• Deep Learning with TensorFlow or PyTorch\n• Neural Networks (how they actually learn)\n• NLP basics (text, sentiment, embeddings)\n• Computer Vision basics (images, CNNs)\n\n**Phase 3: Modern AI (2-3 months)**\n• Large Language Models (GPT, Gemini, Claude)\n• RAG (Retrieval Augmented Generation) - super important now\n• Prompt engineering (it's an art!)\n• Model deployment (Hugging Face, AWS, GCP)\n\n**Phase 4: Build Stuff (ongoing)**\n• A chatbot with memory\n• An image classifier\n• A recommendation system\n• Fine-tune an existing model\n\n**Free Resources I Truly Recommend:**\n• Andrew Ng's ML Course on Coursera (it's classic for a reason)\n• Fast.ai (practical, top-down approach)\n• Hugging Face courses (very hands-on)\n• YouTube: Sentdex, Two Minute Papers (for latest research)\n\n**Salary Reality Check (India):**\n• Entry: ₹8-15 LPA\n• 2-4 years: ₹15-30 LPA\n• Senior: ₹30-60 LPA\n• Top AI roles at Google, Microsoft: ₹50 LPA - 1.5 Cr\n\n**The Honest Truth:** This field moves FAST. But that's exciting — there's always something new to learn. Start with Python and Andrew Ng's course. You've got this!\n\nWant me to break down any specific topic? Or create a weekly study plan for you? 📚";
+  }
+  
+  // ========== SOFTWARE ENGINEER ROADMAP ==========
+  if (msg.match(/software engineer|become.*developer|full stack|frontend|backend|devops|web developer/i)) {
+    if (msg.includes("frontend") || msg.includes("front end")) {
+      return "🎨 **Frontend Development - Your Creative Path**\n\nFrontend is where design meets code. You get to build things people actually see and touch! Here's a realistic roadmap:\n\n**Month 1: The Basics**\n• HTML5 (structure)\n• CSS3 (styling, Flexbox, Grid)\n• Responsive design (mobile first!)\n\n**Month 2: JavaScript Deep Dive**\n• ES6+ (arrow functions, destructuring, spread)\n• DOM manipulation\n• Fetch API (talking to servers)\n\n**Month 3-4: React (the industry standard)**\n• Components, props, state\n• Hooks (useState, useEffect, useContext)\n• React Router (navigation)\n• State management (Redux or Context)\n\n**Month 5: Level Up**\n• TypeScript (game changer for larger apps)\n• Next.js (React on steroids)\n• Testing (Jest, React Testing Library)\n\n**Portfolio Projects That Impress:**\n1. Your personal portfolio (show your personality!)\n2. E-commerce product page (with cart)\n3. Weather dashboard with API\n4. A small game (memory card, tic-tac-toe)\n\n**Free Resources:**\n• The Odin Project (my top recommendation)\n• freeCodeCamp (very hands-on)\n• Frontend Mentor (real-world designs)\n\n**The Journey:** Frontend is perfect if you like seeing instant results. You'll struggle sometimes (we all do), but when you see your design come to life? Pure magic. ✨\n\nWant a weekly study plan or specific project guidance?";
+    }
+    
+    if (msg.includes("backend") || msg.includes("back end")) {
+      return "⚙️ **Backend Development - The Logic Behind the Curtain**\n\nBackend is where data lives, logic happens, and everything connects. You're the architect!\n\n**Month 1-2: Server-Side Basics**\n• Node.js + Express.js (or Python + Django/Flask)\n• REST APIs (how apps talk to each other)\n• Postman for testing\n\n**Month 2-3: Databases**\n• SQL (PostgreSQL or MySQL) — learn this first\n• MongoDB (NoSQL) — great for flexibility\n• Prisma or Mongoose (ODM/ORM)\n\n**Month 3-4: Authentication & Security**\n• JWT tokens\n• OAuth (login with Google)\n• Bcrypt for passwords\n• Environment variables (keep secrets safe!)\n\n**Month 4-5: Advanced**\n• WebSockets (real-time chat)\n• Caching with Redis\n• Message queues (RabbitMQ, Bull)\n\n**Projects That Show Skill:**\n1. User auth API (signup, login, protected routes)\n2. Blog platform with comments\n3. E-commerce backend with payments\n4. Real-time chat app\n\n**Salary Reality:**\n• Junior: ₹6-12 LPA\n• Mid: ₹12-25 LPA\n• Senior: ₹25-45 LPA\n\nBackend engineers are always in demand. Companies need people who understand data, security, and scale. It's challenging but so satisfying when things work smoothly.\n\nWant to dive deeper into databases or authentication?";
+    }
+    
+    // General software engineer roadmap
+    return "💻 **Becoming a Software Engineer - Your Friendly Roadmap**\n\nLet me give you a realistic, step-by-step path that actually works.\n\n**Phase 1: Foundation (2-3 months)**\nPick ONE language to start: Python (easiest) or JavaScript (most versatile). Learn the basics — variables, loops, functions, arrays/objects, OOP basics. Don't rush this phase. Understanding fundamentals makes everything else 10x easier.\n\n**Phase 2: Web Development (2-3 months)**\n• HTML, CSS (just enough to be dangerous)\n• JavaScript deeply (ES6+, async/await, DOM)\n• React (for frontend) OR Node.js (for backend)\n• Git & GitHub (non-negotiable — learn it early)\n\n**Phase 3: Databases (1-2 months)**\n• SQL (PostgreSQL or MySQL)\n• MongoDB for NoSQL\n\n**Phase 4: Build Projects (2-3 months)**\nThis is where you become employable. Build 3 solid projects:\n1. Portfolio website\n2. Full-stack app (to-do with users)\n3. Something you're passionate about (weather app, blog, game)\n\n**Phase 5: Job Prep (2-3 months)**\n• 100-150 LeetCode problems (Easy + Medium)\n• Resume building\n• Mock interviews\n• Apply to 100+ companies\n\n**Total Timeline:** 6-12 months with consistent effort (1-3 hours/day)\n\n**Free Resources That Don't Suck:**\n• The Odin Project (full-stack, project-based)\n• freeCodeCamp (certifications)\n• CS50 (computer science fundamentals)\n\n**The Honest Truth:** Some days you'll feel like a genius. Other days you'll wonder why your code isn't working. Both are normal. Every professional developer has been there.\n\n**Want to specialize?** Frontend, Backend, Full Stack, or DevOps? Tell me what excites you, and I'll give you a focused roadmap.\n\nWhat's your starting point? Complete beginner, some experience, or career switcher?";
+  }
+  
+  // ========== SALARY QUESTIONS ==========
+  if (msg.match(/salary|how much do|pay|compensation|package|ctc|corporate|earning|money|paid/i)) {
+    if (msg.includes("ai engineer") || (msg.includes("ai") && !msg.includes("software"))) {
+      return "💰 **AI Engineer Salaries in 2026 (Real numbers)**\n\n**India:**\n• Fresher/Entry: ₹8-15 LPA\n• 2-4 years: ₹15-25 LPA\n• 4-6 years: ₹25-45 LPA\n• Senior (6+ years): ₹45 LPA - 1.5 Cr\n\n**USA:**\n• Entry: $100k-140k\n• Mid: $140k-200k\n• Senior: $200k-350k+\n\n**Europe:** €60k-120k (varies by country)\n\n**Top Paying Companies for AI Engineers:**\n• OpenAI: $300k-800k+ (total comp)\n• Google DeepMind: $250k-500k\n• Anthropic: $250k-450k\n• Microsoft Research: $200k-350k\n\n**Remote AI Jobs (Global):** $80k-150k\n\n**What Drives Higher Salary:**\n✓ Publications (research roles)\n✓ Open source contributions\n✓ Specialized knowledge (LLMs, RL, Computer Vision)\n✓ Years of experience\n\nWant salary breakdown for a specific company or city?";
+    }
+    
+    if (msg.includes("software engineer") || msg.includes("developer") || msg.includes("sde") || msg.includes("full stack")) {
+      return "💰 **Software Engineer Salaries (2026) — The Real Picture**\n\n**India (INR per year):**\n\n📌 **By Experience:**\n• Fresher (0-1 year): ₹6-12 LPA\n• Junior (1-3 years): ₹10-20 LPA\n• Mid (3-5 years): ₹18-35 LPA\n• Senior (5-8 years): ₹30-60 LPA\n• Lead/Principal (8+ years): ₹50 LPA - 1.5 Cr\n\n📌 **By Role:**\n• Frontend Developer: ₹6-25 LPA\n• Backend Developer: ₹7-30 LPA\n• Full Stack Developer: ₹8-35 LPA\n• DevOps Engineer: ₹8-30 LPA\n• Mobile Developer: ₹6-25 LPA\n\n📌 **FAANG & Top Product Companies (India):**\n• Google, Microsoft: ₹30 LPA - 1 Cr+\n• Amazon, Uber, Flipkart: ₹25-60 LPA\n• Startups (Series A-C): ₹12-30 LPA\n\n**USA (USD per year):**\n• Entry: $80k-120k\n• Mid: $120k-180k\n• Senior: $160k-300k\n• FAANG Senior: $300k-500k+\n\n**Europe (Euros):**\n• Western Europe (Germany, Netherlands): €50k-100k\n• Eastern Europe (Poland, Czech): €30k-60k\n• UK: £40k-90k\n\n**Fully Remote Global Jobs:** $60k-150k\n\n**Factors That Boost Salary:**\n✅ Strong portfolio (real projects)\n✅ LeetCode skills (for FAANG)\n✅ System design knowledge (for senior roles)\n✅ Communication skills (often overlooked but crucial)\n✅ Negotiation (always ask!)\n\nWant salary for a specific city, company, or your experience level? Just tell me!";
+    }
+    
+    return "💰 **Tech Salaries Overview (2026)**\n\nHere's what you can expect across different roles in India:\n\n**AI/ML Engineer:** ₹8-45 LPA\n**Software Engineer:** ₹6-40 LPA\n**Data Scientist:** ₹7-35 LPA\n**DevOps Engineer:** ₹8-30 LPA\n**Product Manager:** ₹12-50 LPA\n**Data Analyst:** ₹5-18 LPA\n**Cybersecurity Engineer:** ₹6-30 LPA\n\n**By Experience:**\n• Entry (0-2 years): ₹4-12 LPA\n• Mid (3-5 years): ₹12-30 LPA\n• Senior (6-9 years): ₹25-60 LPA\n• Lead/Manager (10+ years): ₹50 LPA - 2 Cr\n\n**FAANG Range in India:** ₹30 LPA - 1.5 Cr\n\n**Pro Tip:** Your salary grows FAST with skill upgrades and job switches. The first 2-3 years are about learning. After that, the real growth happens.\n\nWant a breakdown for a specific role, city, or company? Just ask me!";
+  }
+  
+  // ========== CODING HELP ==========
+  if (msg.match(/python|javascript|react|node|java|spring|django|flask|sql|mongodb|typescript|go|rust|html|css|tailwind|bootstrap|git|github|api|rest|graphql/i)) {
+    if (msg.includes("python")) {
+      return "🐍 **Learning Python? Great choice!**\n\nPython is perfect for beginners because it reads like English. Let me give you a clear path:\n\n**Weeks 1-3: Core Python**\n• Variables, data types (int, str, list, dict)\n• Loops (for, while) and conditionals (if/else)\n• Functions (write reusable code)\n\n**Weeks 4-6: Intermediate**\n• OOP (classes, inheritance)\n• File handling\n• Error handling (try/catch)\n\n**Weeks 7-9: Libraries to Know**\n• NumPy (numbers/arrays)\n• Pandas (data analysis — super useful)\n• Requests (API calls)\n\n**Weeks 10-12: Projects**\n• Build a calculator\n• Web scraper (get data from websites)\n• To-do app with file storage\n\n**Free Resources I Love:**\n• Python.org official tutorial (underrated)\n• Corey Schafer on YouTube (best teacher)\n• Automate the Boring Stuff (free book)\n\n**Pro Tip:** Don't just watch videos — code along! Type every example yourself. That's where the real learning happens.\n\nWant specific practice problems or project ideas?";
+    }
+    
+    if (msg.includes("react")) {
+      return "⚛️ **React — Let me help you master it!**\n\nReact is everywhere for a reason. Once it clicks, you'll love building with it.\n\n**Week 1-2: JavaScript First**\nMake sure you know ES6+ well: arrow functions, destructuring, spread/rest, async/await. This makes React so much easier.\n\n**Week 3: React Basics**\n• Components (function components)\n• JSX (HTML in JavaScript)\n• Props (passing data)\n• Conditional rendering\n\n**Week 4: Hooks (The Good Stuff)**\n• useState — manage data\n• useEffect — side effects (API calls)\n• useContext — avoid prop drilling\n\n**Week 5: Advanced Hooks**\n• useRef\n• useReducer (for complex state)\n• Custom hooks (reuse logic)\n\n**Week 6: Routing & APIs**\n• React Router (navigation)\n• TanStack Query (best for API calls)\n• Forms\n\n**Week 7: State Management**\n• Context API (enough for most apps)\n• Redux Toolkit (for larger apps)\n• Zustand (simple and powerful)\n\n**Week 8: Next.js & Deployment**\n• Next.js App Router\n• Vercel deployment (free)\n\n**Projects to Build (in order of difficulty):**\n1. Todo app (useState)\n2. Counter with buttons (useState, events)\n3. Movie search app (useEffect + API)\n4. E-commerce cart (useContext)\n5. Blog with Next.js\n\n**Free Resource:** Full Stack Open (University of Helsinki) — legitimately one of the best free courses out there.\n\n**Struggling with a specific concept?** Just tell me what's confusing you, and I'll explain it differently!";
+    }
+    
+    if (msg.includes("javascript") || msg.includes("js")) {
+      return "📜 **JavaScript — The Language of the Web**\n\nJavaScript can be weird at first (looking at you, `this` keyword), but once you understand it, you'll love it.\n\n**Week 1: Fundamentals**\n• Variables (var, let, const — and why const is your friend)\n• Data types (strings, numbers, booleans, arrays, objects)\n• Functions (regular vs arrow)\n• Loops (for, while, forEach)\n\n**Week 2: Arrays & Objects (Super Important)**\n• map, filter, reduce (master these!)\n• Destructuring\n• Spread operator\n\n**Week 3: Asynchronous JavaScript**\n• Callbacks (old way)\n• Promises (better)\n• async/await (cleanest)\n• Understanding the event loop\n\n**Week 4: DOM & Events**\n• Selecting elements\n• Adding/removing classes\n• Handling clicks, inputs, forms\n\n**Week 5: APIs & Data**\n• Fetch API\n• Error handling\n• LocalStorage\n\n**Projects to Build:**\n1. Digital clock\n2. To-do list (localStorage)\n3. Weather app (API)\n4. Quiz game\n5. Calculator\n\n**Free Resource:** JavaScript30.com — 30 days of pure JavaScript projects. No frameworks, just vanilla JS.\n\n**Common Confusion Points:**\n• `this` binding? I can explain it simply.\n• Closures? They're not scary, I promise.\n• Promises vs callbacks? Let me clarify.\n\nWhat part of JavaScript are you finding tricky?";
+    }
+    
+    // Generic coding help response
+    return "💻 **Let me help you with that!**\n\nI can see you're interested in a specific technology. To give you the best help, could you tell me exactly which language or framework you're learning?\n\n**For example:**\n• 'Python for data science'\n• 'React from scratch'\n• 'JavaScript for beginners'\n• 'Java for interviews'\n• 'SQL for data analysis'\n\nOnce you tell me, I'll give you a detailed roadmap with:\n✅ Free resources (courses, YouTube channels, books)\n✅ A realistic timeline (weeks/months)\n✅ Projects to build (to actually learn)\n✅ Common mistakes to avoid\n\nWhat are you learning? 🚀";
+  }
+  
+  // ========== CAREER SWITCH ==========
+  if (msg.match(/career change|switch to tech|transition|non tech background|no degree|arts background|commerce background|bba|bcom|ba|bsc|non engineer|different field|from non tech/i)) {
+    return "🔄 **Switching to Tech from a Non-Tech Background? You ABSOLUTELY can!**\n\nLet me share some real talk and real hope.\n\n**First, Some Truth:**\nYou don't need a CS degree. Seriously. Some of the best engineers I've 'met' (virtually) were teachers, accountants, salespeople, and even chefs in their past lives.\n\n**Real Success Stories (These are real people):**\n• B.Com graduate → Frontend Developer at a startup (6 months)\n• Civil engineer → Data Scientist at a bank (8 months)\n• Teacher → Full Stack Developer (1 year)\n• Accountant → Product Manager (8 months)\n• Marketing professional → Technical Project Manager (10 months)\n\n**Your Roadmap (6-12 months):**\n\n**Step 1: Choose Your Path (1 week)**\n• Web Development (easiest entry — most common)\n• Data Analytics (if you like numbers)\n• QA/Tester (often overlooked but great entry point)\n\n**Step 2: Learn the Basics (2-3 months)**\n• Web path: HTML, CSS, JavaScript\n• Data path: Python + SQL\n• Free: freeCodeCamp, The Odin Project\n\n**Step 3: Build a Portfolio (2-3 months)**\nThis is what gets you hired, not the degree. Build 3-4 projects and put them on GitHub.\n\n**Step 4: Network Smartly (1 month)**\n• Optimize your LinkedIn (this matters A LOT)\n• Attend virtual tech meetups\n• Connect with people in roles you want\n\n**Step 5: Job Search Strategy (2-3 months)**\n• Target startups first (they care less about degrees)\n• Look for apprenticeships/internships\n• Apply to 50-100 companies (yes, it's a numbers game)\n\n**What to Leverage (Your Secret Weapons):**\n✅ Your domain knowledge (finance, marketing, education, etc.)\n✅ Communication skills (most tech people lack this!)\n✅ Problem-solving from your previous career\n✅ Work ethic and reliability\n\n**What About the Degree Question?**\n• Small startups? They care about skills, not degrees\n• Large companies? Some have filters, but many removed degree requirements\n• FAANG? They have 'no degree' success stories\n\n**Your Age? Doesn't Matter.**\nI've helped people at 30, 40, and 50+ make the switch successfully.\n\n**Tell me about yourself:**\n• What's your current profession?\n• How many hours can you study weekly?\n• What excites you — building websites, working with data, or something else?\n\nI'll give you a personalized plan with exact steps. You've got this! 💪";
+  }
+  
+  // ========== MOTIVATION & DOUBTS ==========
+  if (msg.match(/too old|am i too old|age|30 years|40 years|50 years|late to learn|too late|older|30|40|50|35|45|55|60/i)) {
+    return "🌟 **Here's the honest truth about age and learning to code:**\n\n**It's NOT too late. Not even close.**\n\n**Real People, Real Ages:**\n• Grandma Moses — started painting at 78, became world-famous\n• Colonel Sanders — founded KFC at 65\n• Ray Kroc — built McDonald's empire at 52\n• Vera Wang — became fashion designer at 40\n\n**In Tech Specifically:**\n• I've personally seen people get first dev jobs at 38, 42, 45, 51\n• One of my favorite developers on YouTube started at 35\n• Many bootcamp graduates are in their 30s and 40s\n\n**Why Age Works IN YOUR FAVOR:**\n✅ You have life experience and perspective (young devs don't)\n✅ You know how to communicate and work with people\n✅ You've solved real problems before\n✅ You're likely more disciplined than a 22-year-old\n✅ Companies value maturity and reliability\n\n**What Actually Matters (Not Age):**\n• Consistency (1-2 hours daily beats 10 hours on Saturday)\n• Willingness to be a beginner again (temporarily uncomfortable)\n• Building projects (portfolio beats degree every time)\n\n**The 30 vs 22 Comparison:**\n• Both take 3 months to learn React\n• Both face the same LeetCode struggles\n• But YOU bring domain expertise they don't have\n\n**The Only Thing That Matters:**\nDo you want to look back in 3 years and wish you started today? Or do you want to be 3 years into a new career?\n\nThe best time to plant a tree was 20 years ago. The second best time is NOW.\n\n**What's your specific fear?** Tell me — is it:\n• 'I'm too old to compete with 22-year-olds?' (You're not competing, you're collaborating)\n• 'I don't have the brain for it?' (You do — it's a skill, not a talent)\n• 'It will take too long?' (The time will pass anyway)\n\nLet's talk about it. I'm here for you. ❤️";
+  }
+  
+  if (msg.match(/stuck|demotivated|frustrated|give up|quit|feeling low|no progress|can't do it|too hard|difficult|lost|confused|overwhelmed|burnt out|tired|struggling/i)) {
+    return "🤗 **I hear you. And I want you to know — this feeling is completely normal.**\n\nEvery single developer has been exactly where you are. Even the ones at Google and Microsoft. Especially them, actually.\n\n**Let me tell you something important:**\nFeeling stuck doesn't mean you're failing. It means you're LEARNING. Your brain is literally rewiring itself. That discomfort? That's growth happening.\n\n**What's actually happening:**\nYou've left your comfort zone. You're in the 'learning zone.' This is where all real progress happens. The frustration is proof you're pushing yourself.\n\n**Practical Steps Right Now:**\n\n1️⃣ **Take a 15-minute break. No screens.** Walk, stretch, drink water. You'll be surprised how much clarity comes.\n\n2️⃣ **Break it down.** What's ONE tiny thing you can do next? Not 'finish the project.' Just 'open the file.' Or 'write one line.' Small wins matter.\n\n3️⃣ **Ask for help.** (You already did! That's a win.) Communities exist for this. Reddit, Discord, Stack Overflow — people WANT to help.\n\n4️⃣ **Work on something fun.** Build a silly project just for yourself. Remind yourself why you started.\n\n**Your Progress So Far (Don't ignore this):**\n✓ You're still trying (many people quit — you haven't)\n✓ You care enough to be frustrated (that's passion, not weakness)\n✓ You reached out (that takes courage)\n\n**A Truth to Hold Onto:**\n> 'The expert at anything was once a beginner who didn't give up.'\n\n> 'Success is not final, failure is not fatal: it is the courage to continue that counts.' — Winston Churchill\n\n**What would help you most right now?**\n• A specific concept explained a different way?\n• Someone to tell you it's okay to take a break? (It is!)\n• A reminder that you've already come further than you think?\n\nTalk to me. I'm genuinely here for you. 💙";
+  }
+  
+  // ========== JOKES & FUN ==========
+  if (msg.match(/joke|funny|laugh|make me laugh|humor|hilarious|crack me up/i)) {
+    const jokes = [
+      "Why do programmers prefer dark mode? Because light attracts bugs! 🐛\n\n...I'll show myself out. 😅",
+      "Why do Java developers wear glasses? Because they can't C#! 👓\n\n(I'll be here all week!)",
+      "What's a developer's favorite exercise? Git push-ups! 💪\n\n...Get it? Git? Okay, okay.",
+      "Why was the JavaScript developer sad? Because he didn't Node how to Express himself! 😢\n\nThat one was terrible, I know.",
+      "How many programmers does it take to change a light bulb? None, that's a hardware problem! 💡\n\n(Software engineers everywhere nodded)",
+      "Why do Python programmers prefer snakes? Because they can't stand Java! 🐍\n\nToo far? 😬",
+      "What do you call a developer from a foreign country? A coder! 🌍\n\n...I'll stop now.",
+    ];
+    return jokes[Math.floor(Math.random() * jokes.length)] + "\n\nWant another one? Just say 'another joke'! 😄";
+  }
+  
+  if (msg.match(/motivate|motivation|inspire|encouragement|keep going|i need motivation/i)) {
+    return "🌟 **You want motivation? Here's what I know for sure:**\n\n**The Thing About Progress:**\nIt's never linear. Some days you'll feel like a genius. Other days you'll wonder why your code won't compile. Both days are part of the same journey.\n\n**What Nobody Tells You:**\nEvery successful developer has a folder of failed projects. Every one. The difference is they didn't stop.\n\n**The Secret That's Not a Secret:**\nConsistency beats intensity. 1 hour every day > 10 hours once a week. Small steps, repeated, create massive change.\n\n**Right Now, Someone Is:**\n• Starting their first 'Hello World'\n• Fixing a bug they've struggled with for 3 days\n• Getting their first job after 8 months of learning\n• Feeling just as scared and excited as you\n\n**A Few Truths to Hold Onto:**\n✓ You don't need to be the best. You just need to be consistent.\n✓ Every expert was once a beginner who didn't quit.\n✓ The only way out is through — and you're already moving.\n✓ You've survived 100% of your bad days so far.\n\n**Your Only Job Today:**\nDo one small thing. Write one line of code. Watch one tutorial. Open your editor. That's it. Tomorrow, do it again.\n\n**You've got this. I genuinely believe in you.**\n\nNow tell me — what's ONE thing you'll do today? (And yes, resting counts. Burnout is real, take care of yourself.) 💪❤️";
+  }
+  
+  // ========== RESUME HELP ==========
+  if (msg.match(/resume|review.*resume|resume tips|improve.*resume|cv|curriculum vitae|ats|resume format/i)) {
+    return "📄 **Let's talk about your resume — this is so important.**\n\nHere's what actually works in 2026 (and what doesn't).\n\n**Format Matters More Than You Think:**\n✅ Keep it to 1 page (2 pages MAX if you have 8+ years)\n✅ Use PDF — always. Never Word.\n✅ Standard fonts: Arial, Calibri, Helvetica (no fancy stuff)\n❌ NO columns, tables, graphics, or images (ATS can't read them)\n❌ NO headers/footers with contact info\n\n**The Content That Gets You Hired:**\n\n**Experience Section (Use Action Verbs + Numbers):**\n❌ 'Responsible for feature development'\n✅ 'Developed 5 features that increased user engagement by 40%'\n\n❌ 'Worked on improving performance'\n✅ 'Optimized API response time from 500ms to 200ms (60% improvement)'\n\n**Skills Section:**\n• List 15-20 relevant skills\n• Group by category: Languages, Frameworks, Tools\n• Don't list everything — list what's relevant to the job\n\n**Projects (Crucial for Freshers):**\n• 3-4 projects with live links\n• For each: what tech you used, what you built, what impact it had\n\n**ATS Tips (This is non-negotiable):**\n✓ Match keywords from the job description EXACTLY\n✓ Use standard section headings: 'Experience', 'Education', 'Skills'\n✓ Submit as PDF only\n✓ Name your file: FirstName_LastName_Resume.pdf\n\n**Want me to review your actual resume?** Upload the PDF and I'll give you specific, actionable feedback — what's working, what's not, and exactly how to fix it.\n\n**Need a template?** I can point you to free ATS-friendly templates (no spam, just good resources).\n\nWhat's your biggest resume struggle right now?";
+  }
+  
+  // ========== INTERVIEW PREP ==========
+  if (msg.match(/interview|prepare for interview|coding interview|technical interview|behavioral interview|system design|mock interview/i)) {
+    if (msg.includes("coding") || msg.includes("technical") || msg.includes("leetcode")) {
+      return "💻 **Coding Interview Prep — Let's Make This Less Scary**\n\nHere's what you actually need to know. It's not as overwhelming as it seems.\n\n**Core Topics (Where to Focus):**\n✅ Arrays & Strings (most common — master these first)\n✅ HashMaps/Dictionaries (use them constantly)\n✅ Two Pointers & Sliding Window\n✅ Recursion & Backtracking\n✅ Trees & Graphs (BFS, DFS)\n✅ Dynamic Programming (just the easy/medium ones)\n\n**Realistic Practice Plan (8 weeks):**\n• Weeks 1-2: Easy problems (50) — build confidence\n• Weeks 3-4: Medium problems (50) — pattern recognition\n• Weeks 5-6: Company-tagged problems (30) — targeted practice\n• Weeks 7-8: Mock interviews + review weak areas\n\n**Best Platforms:**\n• LeetCode (industry standard) — do Blind 75 or NeetCode 150\n• HackerRank (good for basics)\n• CodeSignal (timed practice)\n\n**Your Strategy for Each Problem:**\n1. Clarify the problem (2 min) — repeat it back to them\n2. Brute force first (2 min) — get something working\n3. Optimize & explain complexity (3 min)\n4. Write clean code (10 min)\n5. Test with examples (3 min)\n\n**The Secret Most People Miss:**\nTalk out loud. Interviewers want to see your thinking process, not just the final answer. Even if you don't solve it perfectly, showing your approach is huge.\n\n**Want to practice right now?** Tell me a problem you're stuck on, or ask me for a common interview question. We'll solve it together.\n\nWhat's your target company? Different companies have different patterns (Google loves graphs, Amazon loves OOD, etc.).";
+    }
+    
+    if (msg.includes("system design")) {
+      return "🏗️ **System Design Interviews — For When You're Ready to Scale**\n\nThis is for mid-level and senior roles (usually 3+ years experience). Here's what you need.\n\n**Core Concepts to Understand:**\n• Load balancers (spreading traffic)\n• Caching (Redis, CDN — speed things up)\n• Databases (SQL vs NoSQL, sharding, replication)\n• Message queues (Kafka, RabbitMQ — async processing)\n• Microservices vs Monolith\n• CAP Theorem (Consistency vs Availability vs Partition tolerance)\n\n**Common Questions to Practice:**\n1. Design URL shortener (TinyURL)\n2. Design Twitter/X (feed, follows, tweets)\n3. Design Uber (matching, tracking)\n4. Design Netflix (streaming, recommendations)\n5. Design WhatsApp (real-time messaging)\n6. Design Facebook news feed\n\n**Your Answer Framework (Use This!):**\n1. **Requirements** — What exactly are we building? Functional + Non-functional\n2. **Estimation** — How much traffic? How much storage?\n3. **High-level design** — Draw boxes (API gateway, services, DB)\n4. **Deep dive** — Database schema, API endpoints\n5. **Scale** — What breaks? How do we fix it?\n\n**Best Resources:**\n• Grokking System Design (there's a free PDF floating around)\n• YouTube: Gaurav Sen, System Design Interview\n• GitHub: system-design-primer (free and excellent)\n\n**Pro Tip:** Start with URL shortener. It's the 'Hello World' of system design and covers most core concepts.\n\nWant me to walk through a specific design problem with you? Pick one and let's go!";
+    }
+    
+    // General interview prep
+    return "🎯 **Interview Prep — Let's Get You Ready**\n\nWhether it's your first interview or your tenth, here's what actually helps.\n\n**One Week Before:**\n✅ Research the company (products, mission, recent news)\n✅ Prepare 'Tell me about yourself' (2 minutes, compelling)\n✅ Prepare 5 STAR stories for common questions:\n   • Leadership / Initiative\n   • Conflict resolution\n   • Failure and learning\n   • Teamwork success\n   • Technical challenge you solved\n\n**Three Days Before:**\n✅ Review the company's tech stack\n✅ Practice company-tagged LeetCode problems (10-15)\n✅ Review system design basics (if senior role)\n✅ Practice explaining your projects\n\n**Day Before:**\n✅ Mock interview with a friend (or me!)\n✅ Test your setup — camera, mic, internet, lighting\n✅ Prepare 5-7 questions to ask them (this matters more than you think)\n✅ Get good sleep (seriously — underrated)\n\n**During the Interview:**\n✅ Think out loud (they want to see your process)\n✅ Ask clarifying questions — it shows thoughtfulness\n✅ It's okay to ask for hints (better than being stuck)\n\n**Common Questions to Practice Answering:**\n• 'Why do you want to work here?'\n• 'Describe a challenging bug you fixed.'\n• 'How do you handle conflict on a team?'\n• 'Where do you see yourself in 5 years?'\n\n**Questions to Ask Them:**\n• 'What does success look like in this role?'\n• 'What's the team culture like?'\n• 'What's the biggest challenge the team faces?'\n\n**Want to do a mock interview right now?** I'll ask you a real interview question and we'll practice together. Just say 'mock interview me!' 🎯";
+  }
+  
+  // ========== EXPLANATIONS (What is X?) ==========
+  if (msg.match(/what is|explain|define|meaning of|difference between|vs|comparison|how does.*work/i)) {
+    if (msg.includes("api")) {
+      return "🔌 **API Explained (Like You're Five)**\n\nImagine you're at a restaurant. You (the client) tell the waiter what you want. The waiter tells the kitchen (the server). The kitchen cooks your food, and the waiter brings it back to you.\n\nThe waiter is the API. You don't need to know how the kitchen works. You just ask, and the API handles the rest.\n\n**Real Examples You Use Every Day:**\n• Weather app → calls Weather API\n• 'Login with Google' → calls Google's OAuth API\n• Paying with credit card → calls payment API\n\n**Technical but Simple:**\nAn API is a set of rules that lets two pieces of software talk to each other. It's like a contract — 'If you send me this request, I'll send you back this response.'\n\n**Common API Types:**\n• REST (most common — uses HTTP, returns JSON)\n• GraphQL (ask for exactly what you want)\n\n**Want to build your own API?** I can show you a simple one in 10 lines of code!\n\nDoes that help? Anything else you want to know about APIs?";
+    }
+    
+    if (msg.includes("database") || msg.includes("sql") || msg.includes("nosql")) {
+      return "🗄️ **Databases Explained (No Jargon, I Promise)**\n\nA database is just a way to store information so you can find it again later. Like a filing cabinet, but digital.\n\n**Two Main Types:**\n\n**SQL (Structured) — Think Excel on Steroids**\n• Data lives in tables with rows and columns\n• Great for: Banking, e-commerce, anything with relationships\n• Examples: PostgreSQL, MySQL, SQLite\n\n**NoSQL — Think Folders with Documents**\n• Data lives in JSON-like documents\n• Great for: Social media, catalogs, flexible data\n• Examples: MongoDB, Firebase\n\n**When to Use Which:**\n✓ SQL when you need accuracy (banking, orders, payments)\n✓ NoSQL when you need speed and flexibility (Instagram feed, product catalogs)\n\n**Which to Learn First:**\nStart with SQL. It's been around forever and isn't going anywhere. Understanding SQL makes learning NoSQL easier later.\n\n**Simple Example:**\nSQL: 'Give me all users who signed up last month'\nNoSQL: 'Get me this user document and everything inside it'\n\nWant me to show you actual database queries? I can teach you SQL in 15 minutes!";
+    }
+    
+    if (msg.includes("algorithm")) {
+      return "📊 **What's an Algorithm? Let Me Explain Simply**\n\nAn algorithm is just a step-by-step recipe to solve a problem. That's it. Nothing magical.\n\n**Example — Algorithm to Make Tea:**\n1. Boil water\n2. Add tea bag to cup\n3. Pour hot water\n4. Wait 3 minutes\n5. Remove tea bag\n6. Add sugar (optional)\n7. Enjoy!\n\nThat's an algorithm. Just steps.\n\n**Why We Care About Algorithms in Coding:**\nSome recipes are faster than others. If you have a million tea orders, you want the fastest recipe. That's what algorithm study is about — finding efficient ways to do things.\n\n**Common Algorithm Types:**\n• **Searching** — Finding something in a list (like finding a name in a phone book)\n• **Sorting** — Putting things in order (like alphabetizing books)\n• **Pathfinding** — Finding the shortest route (like Google Maps)\n\n**You Use Algorithms Every Day:**\n• GPS finds the fastest route (Dijkstra's algorithm)\n• Spotify recommends songs (recommendation algorithm)\n• Google finds search results (PageRank)\n\n**Good News:** You don't need to invent new algorithms. You just need to understand them and know when to use which one.\n\nWant to learn a specific algorithm together? I can walk you through one step by step!";
+    }
+    
+    // Default explanation for anything else
+    return "🤔 **Great question! I'd love to explain this.**\n\nTo give you the best answer, could you tell me a bit more specifically what you want to know?\n\n**Some things I can explain:**\n• 'What is an API?' (with a real example)\n• 'How does recursion work?' (with simple code)\n• 'Difference between SQL and NoSQL?' (when to use which)\n• 'How does the internet actually work?' (simplified)\n• 'What's the difference between HTTP and HTTPS?'\n\n**Or just ask me your question again** — maybe rephrase it a bit, and I'll give you a clear, detailed explanation with examples.\n\nWhat would you like me to explain? 🧠";
+  }
+  
+  // ========== DEFAULT - ANYTHING ELSE ==========
+  // This handles any question not covered above — makes AI truly ChatGPT-like
+  return `🤖 **I'm here for you — ask me anything!**
+
+You asked: "${message}"
+
+I'm an AI assistant that can help with pretty much anything. Here's what I'm good at:
+
+**💻 Tech & Coding**
+• Python, JavaScript, React, Java — roadmaps, tutorials, debugging
+• System design, algorithms, data structures
+• APIs, databases, cloud
+• Project ideas and code reviews
+
+**🚀 Career & Jobs**
+• Resume reviews (upload yours!)
+• Interview prep (coding, behavioral, system design)
+• Salary guides for any role/city
+• Career switching advice (non-tech to tech)
+• Job search strategies
+
+**📚 Learning & Growth**
+• Personalized study plans
+• Free resource recommendations
+• Motivation when you're stuck
+• Explaining complex topics simply
+
+**💬 General Chat**
+• Jokes to make you laugh
+• Encouragement when you need it
+• Answering random questions about anything
+
+**Just ask me naturally — like you're talking to a friend.**
+
+• "I want to become a software engineer but don't know where to start"
+• "Can you review my approach to this coding problem?"
+• "Tell me a joke"
+• "I'm feeling stuck and demotivated"
+• "What's the salary for a data scientist in Bangalore?"
+• "Explain recursion like I'm 10 years old"
+
+**What's on your mind? I'm listening.** 🎯`;
+}
